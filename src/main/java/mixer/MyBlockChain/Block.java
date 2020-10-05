@@ -1,9 +1,9 @@
-package MyBlockChain;
+package mixer.MyBlockChain;
 
 import java.sql.Timestamp;
 import java.time.Instant;
 
-import static MyBlockChain.Const.ConstValues.CONST_BLOCK_TRANSACTIONS_CAPACITY;
+import static mixer.MyBlockChain.Const.ConstValues.CONST_BLOCK_TRANSACTIONS_CAPACITY;
 
 public class Block {
     // private BlockData data;
