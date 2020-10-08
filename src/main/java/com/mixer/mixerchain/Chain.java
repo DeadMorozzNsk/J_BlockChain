@@ -1,4 +1,4 @@
-package MyBlockChain;
+package com.mixer.mixerchain;
 
 public class Chain {
 

@@ -1,4 +1,4 @@
-package MyBlockChain.Encryption;
+package com.mixer.mixerchain.encryption;
 
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;

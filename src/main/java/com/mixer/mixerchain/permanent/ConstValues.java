@@ -1,4 +1,4 @@
-package MyBlockChain.Const;
+package com.mixer.mixerchain.permanent;
 
 public class ConstValues {
     public static final int CONST_BLOCK_TRANSACTIONS_CAPACITY = 10;

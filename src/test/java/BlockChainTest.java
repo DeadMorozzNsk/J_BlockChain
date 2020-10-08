@@ -1,4 +1,4 @@
-import MyBlockChain.Encryption.Encryption;
+import com.mixer.mixerchain.encryption.Encryption;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
