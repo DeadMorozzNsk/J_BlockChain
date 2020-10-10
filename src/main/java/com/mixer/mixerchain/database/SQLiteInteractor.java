@@ -43,15 +43,23 @@ public class SQLiteInteractor implements DatabaseInteractor {
     public void writeBlock(final Block block) {
         if (connection != null) {
             Transaction[] transactions = block.getTransactions();
-            StringBuilder sqlQuery = new StringBuilder();
-            sqlQuery.append("SELECT");
-            for (int i = 0; i < transactions.length; i++) {
-                sqlQuery.append("INSERT INTO transactions(block_id, sender_id, receiver_id, timestamp, amount)\n" +
-                        "VALUES(" + 1 /** need to blockId */+ ", \"" +
-                        transactions[i].getSender() + "\", \"" +
-                        transactions[i].getReceiver() + "\", \"" +
-                        new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(new java.util.Date()) + "\", " +
-                        transactions[i].getAmount() + ");");
+//            StringBuilder sqlQuery = new StringBuilder();
+//            sqlQuery.append("SELECT");
+            try {
+                stmt.addBatch("START TRANSACTION;");
+                /* need to write blockId first*/
+                for (Transaction transaction : transactions) {
+                    stmt.addBatch("INSERT INTO transactions(block_id, sender_id, receiver_id, timestamp, amount)\n" +
+                            "VALUES(" + 1 + ", \"" +
+                            transaction.getSender() + "\", \"" +
+                            transaction.getReceiver() + "\", \"" +
+                            new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(new java.util.Date()) + "\", " +
+                            transaction.getAmount() + ");");
+                }
+                stmt.addBatch("END TRANSACTION;");
+                stmt.executeBatch();
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
         }
     }

@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+<title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+    <div>
+        <form method="POST">
+            <input type="text" name="name" placeholder="input name"/>
+            <input type="text" name="email" placeholder="input email"/>
+            <input type="text" name="password" placeholder="input password"/>
+            <input type="text" name="address" placeholder="input address"/>
+            <button type="submit">Add new user</button>
+        </form>
+    </div>
+    <div>Users list</div>
+    <div th:each="user : ${users}">
+        <div style="border: 1px solid;">
+            <b>${user.name}</b>
+            <span>${user.email}, ${user.password}, ${user.address}</span>
+        </div>
+    </div>
+
+</body>
+</html>
