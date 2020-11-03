@@ -1,4 +1,4 @@
-package com.mixer.mixerchain;
+package com.mixer.webapp.backend.models;
 
 import com.sun.istack.internal.NotNull;
 

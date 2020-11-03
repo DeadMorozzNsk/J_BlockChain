@@ -1,4 +1,4 @@
-package com.mixer.mixerchain.encryption;
+package com.mixer.webapp.backend.utils;
 
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
@@ -6,11 +6,11 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 
-public class Encryption {
+public class Encryptor {
     private final String key;
     private static final int[] pin = {3, 6, 1, 2};//значения от 0 до 31. Чем меньше элементов, тем больше вероятность коллизии в шифре
 
-    public Encryption(String key) {
+    public Encryptor(String key) {
         this.key = key;
     }
 
@@ -65,6 +65,24 @@ public class Encryption {
                 sBuilder.append("0");
             }
             result = sBuilder.append(result).toString();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public static String getSHA256String(String src) {
+        String result = "";
+        try {
+            MessageDigest sha256 = MessageDigest.getInstance("SHA-256");
+            byte[] encodedHash = sha256.digest(src.getBytes(StandardCharsets.UTF_8));
+            StringBuilder hexString = new StringBuilder(2 * encodedHash.length);
+            for (byte hashByte : encodedHash) {
+                String hex = Integer.toHexString(0xff & hashByte);
+                if (hex.length() == 1) hexString.append('0');
+                hexString.append(hex);
+            }
+            result = hexString.toString();
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
