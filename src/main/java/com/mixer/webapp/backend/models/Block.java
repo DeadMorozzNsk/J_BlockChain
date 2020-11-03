@@ -1,38 +1,44 @@
 package com.mixer.webapp.backend.models;
 
 import com.mixer.webapp.backend.utils.Encryptor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
 import java.sql.Timestamp;
 import java.time.Instant;
-import java.util.ResourceBundle;
+import java.util.*;
 
-
+@Entity
+@Table(name = "blocks")
+@Data
+@NoArgsConstructor
+@EqualsAndHashCode(of = {"id"})
 public class Block {
-    private final ResourceBundle resource = ResourceBundle.getBundle("blockchain");
-    private long index;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
+    @Column(updatable = false)
     private String timeStamp;
     private String hash;
     private String previousHash;
-    private Transaction[] transactions = new Transaction[
-            Integer.parseInt(resource.getString("transactions_per_block"))];
 
+    @OneToMany(mappedBy = "block")
+    private List<Transaction> transactions = new ArrayList<>(
+            Integer.parseInt(
+                    ResourceBundle.getBundle("blockchain")
+                    .getString("transactions_per_block")));
 
-    public String getHash() {
-        return hash;
-    }
-
-    public Transaction[] getTransactions() {
-        return transactions;
-    }
 
     public Block(String _prevHash) {
-        this.index = 1;
+        this.id = 1;
         this.previousHash = _prevHash;
         this.timeStamp = Timestamp.from(Instant.now()).toString();
     }
 
     private boolean isValid(Block previousBlock) {
-        if (previousBlock.index + 1 != this.index) {
+        if (previousBlock.id + 1 != this.id) {
             System.out.println("неверный индекс");
             return false;
         } else if (previousBlock.hash.equals(this.previousHash)) {
@@ -46,6 +52,6 @@ public class Block {
     }
 
     private String calculateHashForBlock(Block block) {
-        return Encryptor.getSHA256String(block.previousHash + block.timeStamp + block.index);
+        return Encryptor.getSHA256String(block.previousHash + block.timeStamp + block.id);
     }
 }

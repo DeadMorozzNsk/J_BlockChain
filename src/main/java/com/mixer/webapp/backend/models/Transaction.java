@@ -1,24 +1,44 @@
 package com.mixer.webapp.backend.models;
 
-import com.sun.istack.internal.NotNull;
+import com.mixer.webapp.backend.utils.Encryptor;
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import javax.persistence.*;
 
 /**
  * Defines transaction object.
  */
-
+@Entity
+@Table(name = "transactions")
+@Getter
+@Setter
+@Data
+@NoArgsConstructor
 public class Transaction {
     /**
-     * Sender's account address.
+     * Unique transaction id
      */
-    private final String sender;
-    /**
-     * Receiver's account address.
-     */
-    private final String receiver;
+    @Id
+    private String id;
     /**
      * Amount of coins to be sent.
      */
-    private final double amount;
+    private double amount;
+
+    @ManyToOne
+    @JoinColumn(name = "block_id")
+    private Block block;
+
+    @ManyToOne
+    @JoinColumn(name = "sender_id", nullable = false, insertable = false, updatable = false)
+    private WebUser sender;
+
+    @ManyToOne
+    @JoinColumn(name = "receiver_id", nullable = false, insertable = false, updatable = false)
+    private WebUser receiver;
 
     /**
      * Constructor.
@@ -27,42 +47,13 @@ public class Transaction {
      * @param pReceiver receiver's account address
      * @param pAmount   amount of coins to be sent
      */
-    public Transaction(@NotNull final String pSender,
-                       @NotNull final String pReceiver,
+    public Transaction(final String pSender,
+                       final String pReceiver,
                        final double pAmount) {
+        this.id = "Tx_" + Encryptor.getSHA256String(pSender + pReceiver + pAmount);
         if (pAmount <= 0) {
-            throw new IllegalArgumentException(
-                    "Amount of coins can not be less than 0!!!");
-        }
-        this.sender = pSender;
-        this.receiver = pReceiver;
-        this.amount = pAmount;
+            this.amount = 0;
+        } else this.amount = pAmount;
     }
 
-    /**
-     * Returns sender's account address.
-     *
-     * @return <String> account address
-     */
-    public String getSender() {
-        return sender;
-    }
-
-    /**
-     * Returns receiver's account address.
-     *
-     * @return <String> account address
-     */
-    public String getReceiver() {
-        return receiver;
-    }
-
-    /**
-     * Returns amount of coins to be sent from sender to receiver.
-     *
-     * @return amount of coins
-     */
-    public double getAmount() {
-        return amount;
-    }
 }
