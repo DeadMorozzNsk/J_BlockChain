@@ -1,4 +1,4 @@
-package com.mixer.webapp.config;
+package com.simplechain.webapp.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

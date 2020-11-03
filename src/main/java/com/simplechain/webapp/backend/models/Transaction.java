@@ -1,6 +1,6 @@
-package com.mixer.webapp.backend.models;
+package com.simplechain.webapp.backend.models;
 
-import com.mixer.webapp.backend.utils.Encryptor;
+import com.simplechain.webapp.backend.utils.Encryptor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

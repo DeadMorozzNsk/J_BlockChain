@@ -1,5 +1,5 @@
-import com.mixer.webapp.backend.models.Block;
-import com.mixer.webapp.backend.utils.Encryptor;
+import com.simplechain.webapp.backend.models.Block;
+import com.simplechain.webapp.backend.utils.Encryptor;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

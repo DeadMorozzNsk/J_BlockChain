@@ -1,7 +1,7 @@
-package com.mixer.webapp.backend.controllers.rest.v1;
+package com.simplechain.webapp.backend.controllers.rest.v1;
 
-import com.mixer.webapp.backend.models.WebUser;
-import com.mixer.webapp.backend.repos.WebUserRepo;
+import com.simplechain.webapp.backend.models.WebUser;
+import com.simplechain.webapp.backend.repos.WebUserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

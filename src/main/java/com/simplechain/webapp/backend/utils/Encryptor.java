@@ -1,4 +1,4 @@
-package com.mixer.webapp.backend.utils;
+package com.simplechain.webapp.backend.utils;
 
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
