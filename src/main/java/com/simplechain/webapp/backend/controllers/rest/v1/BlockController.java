@@ -20,7 +20,7 @@ public class BlockController {
     }
 
     @GetMapping
-    public List<Block> getUsers() {
+    public List<Block> getBlocks() {
         return blockRepo.findAll();
     }
 
@@ -30,20 +30,20 @@ public class BlockController {
     }
 
     @PostMapping
-    public Block addUser(@RequestBody Block block) {
+    public Block addBlock(@RequestBody Block block) {
         block.setTimeStamp(String.valueOf(LocalDateTime.now()));
         return blockRepo.save(block);
     }
 
     @PutMapping("{id}")
-    public Block update(@PathVariable("id") Block userFromDb,
-                          @RequestBody Block user) {
-        BeanUtils.copyProperties(user, userFromDb, "id", "password");
-        return blockRepo.save(userFromDb);
+    public Block update(@PathVariable("id") Block blockFromDb,
+                          @RequestBody Block block) {
+        BeanUtils.copyProperties(block, blockFromDb, "id");
+        return blockRepo.save(blockFromDb);
     }
 
     @DeleteMapping("{id}")
-    public void deleteUser(@PathVariable("id") Block block) {
+    public void deleteBlock(@PathVariable("id") Block block) {
         blockRepo.delete(block);
     }
 }

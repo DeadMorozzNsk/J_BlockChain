@@ -17,7 +17,7 @@ import java.util.*;
 @EqualsAndHashCode(of = {"id"})
 public class Block {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @Column(updatable = false)
     private String timeStamp;
@@ -37,7 +37,7 @@ public class Block {
         this.timeStamp = Timestamp.from(Instant.now()).toString();
     }
 
-    private boolean isValid(Block previousBlock) {
+    public boolean isValid(Block previousBlock) {
         if (previousBlock.id + 1 != this.id) {
             System.out.println("неверный индекс");
             return false;
